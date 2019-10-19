@@ -552,6 +552,9 @@ The two main `tidyr` functions:
 
 https://www.rstudio.com/resources/cheatsheets/ (Data Import Cheatsheet)
 
+The `tidyr` package has been updated to 1.0.
+There is some new syntax around pivoting data: see [here](https://tidyr.tidyverse.org/articles/pivot.html).
+
 ## `spread()` CANSIM
 
 ```{r}
