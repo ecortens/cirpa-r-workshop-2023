@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * Who are you/where do you work?
 * What software/tools do you spend most time with? (Excel? SPSS? Tableau? etc)
 * Do you have any programming experience? (Python? C? Javascript?)
-* What do you hope to get out of this workshop? How do you see yourself using R in an IR environment?s
+* What do you hope to get out of this workshop? How do you see yourself using R in an IR environment?
 
 # Why use R?
 
@@ -40,26 +40,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Growing fast!
 
-```{r,eval=FALSE,echo=FALSE,message=FALSE}
-# devtools::install_github('metacran/cranlogs')
-# cran_R_downloads <- cranlogs::cran_downloads('R', from = '2012-10-01', to = '2018-09-30')
-# readr::write_rds(cran_R_downloads, 'cran_R_downloads.rds', compress = 'gz')
-cran_R_downloads <- read_rds('cran_R_downloads.rds')
-
-cran_R_downloads %>% 
-  group_by(lubridate::year(date), lubridate::month(date)) %>% 
-  summarise(date = first(date), count = sum(count)) %>% 
-  ggplot(aes(date, count)) +
-  geom_line() +
-  geom_smooth()
-
-# R downloads not a great indicator, dependent on when releases are, etc
-```
-
-
 ```{r,echo=FALSE,message=FALSE}
-# crandl <- cran_downloads(from = '2012-10-01', to = '2018-09-30')
-# write_rds(crandl, 'crandl.rds', compress = 'gz')
+# devtools::install_github('metacran/cranlogs')
+# crandl <- cranlogs::cran_downloads(from = '2012-10-01', to = '2019-09-30')
+# readr::write_rds(crandl, 'crandl.rds', compress = 'gz')
 library(tidyverse)
 library(lubridate)
 
