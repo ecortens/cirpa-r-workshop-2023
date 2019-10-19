@@ -1,6 +1,6 @@
 ---
 title: "Using R to Analyse and Visualize Data - A Hands-on Workshop"
-author: "Evan Cortens, PhD and Stephen Childs"
+author: "Evan Cortens and Stephen Childs"
 date: "October 20, 2019"
 output: 
   revealjs::revealjs_presentation:
@@ -374,11 +374,11 @@ http://evancortens.com/cirpa/
 
 We'll use `read_csv()` from `readr`, which I prefer to the base R function, as it has some more sensible defaults, and it's faster.
 
-```{r}
-# http://www20.statcan.gc.ca/tables-tableaux/cansim/csv/04770058-eng.zip
+```{r,cache=TRUE}
+# https://www150.statcan.gc.ca/n1/en/tbl/csv/37100026-eng.zip
 # make sure the zip file is in the same directory as your RStudio project
 
-revenue_raw <- read_csv('04770058-eng.zip') 
+revenue_raw <- read_csv('http://evancortens.com/cirpa/04770058-eng.csv.gz')
 ```
 
 The `read_csv()` function tells us that it guessed the types of the various columns. In this situation, the default guesses are fine, but of course we can force it to treat columns certain ways if we wish.
