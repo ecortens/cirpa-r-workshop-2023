@@ -135,11 +135,11 @@ One of the strengths of R: every step of this workflow can be done using it!
 * `install.packages('tidyverse')`
 
 ## Basic R
-* An interpreted language (like Python)
+* An interpreted language
 * Code can be run as:
     * scripts (programatically/non-interactively)
     * from the prompt (interactively)
-* R uses an REPL (Read-Evaluate-Print Loop) just like Python
+* R uses an REPL (Read-Evaluate-Print Loop)
     * Using R as a calculator (demonstration)
     
 # Outline
@@ -157,7 +157,7 @@ One of the strengths of R: every step of this workflow can be done using it!
 library(tidyverse)
 ```
 
-A package only needs to be *installed* once (per major version, e.g. 3.3.x to 3.4.x), but must be *loaded* every time.
+A package only needs to be *installed* once (per major version, e.g. 3.5.x to 3.6.x), but must be *loaded* every time.
 
 ## The 'mpg' data set
 Data on the fuel efficiency of 38 models of cars between 1999 and 2008 from the US EPA:
