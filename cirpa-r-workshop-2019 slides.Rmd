@@ -900,6 +900,8 @@ mtcars$mpg
 mtcars %>% pull(mpg)
 ```
 
+## Statistics with Vectors
+
 * `mean(mtcars$mpg)`
 * `mean(mtcars$mpg, trim = .1)`
 * `table(iris$Species)`
@@ -907,6 +909,12 @@ mtcars %>% pull(mpg)
 * `hist(mtcars$mpg)`
 * `ggplot(mtcars) + geom_histogram(aes(x = mpg))`
 * `ggplot(mtcars) + geom_histogram(aex(x = mpg)) + facet_grid(~vs)`
+
+## Broadcasting
+
+```{r}
+mtcars$mpg - mean(mtcars$mpg)
+```
 
 ## _t_-tests
 
@@ -936,6 +944,12 @@ tbl
 chisq.test(tbl)
 ```
 
+## More Stats
+
+* `modeOf()`
+* `maxFreq()`
+* `max()`, `min()` and `range()`
+* `IQR()`, `quantile()`, `quantile( x = data, probs = c(.25, .75)`
 
 # Modeling
 
