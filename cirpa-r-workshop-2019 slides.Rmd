@@ -524,7 +524,7 @@ revenue_long <- revenue_raw %>%
 
 `x %>% f(y)` turns into `f(x, y)`, and `x %>% f(y) %>% g(z)` turns into `g(f(x, y), z)` etc.
 
-Shortcut for pipe operator: Ctrl-Shift-M in RStudio
+Shortcut for pipe operator: Ctrl-Shift-M (Cmd-Shift-M on Mac also works) in RStudio
 
 ```{r}
 head(revenue_long, 1) # looks good so far!
