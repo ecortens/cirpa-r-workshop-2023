@@ -285,7 +285,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 ```
 
 ## Exercise: Recreate:
-```{r,echo=FALSE}
+```{r,echo=FALSE,warning=FALSE}
 ggplot(mpg, aes(x=displ, y=hwy)) +
   geom_point() +
   geom_smooth(se=FALSE)
@@ -551,6 +551,8 @@ The two main `tidyr` functions:
 ![](tidyr.png)
 
 https://www.rstudio.com/resources/cheatsheets/ (Data Import Cheatsheet)
+
+## `tidyr` Changes in 1.0
 
 The `tidyr` package has been updated to 1.0.
 There is some new syntax around pivoting data: see [here](https://tidyr.tidyverse.org/articles/pivot.html).
