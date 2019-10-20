@@ -890,6 +890,24 @@ str(z)
 * Just about any statistics function is available as a package.
 * Don't always follow the tidyverse conventions.
 
+## Vectors
+
+```{r}
+mtcars$mpg
+```
+
+```{r}
+mtcars %>% pull(mpg)
+```
+
+* `mean(mtcars$mpg)`
+* `mean(mtcars$mpg, trim = .1)`
+* `table(iris$Species)`
+* `iris %>% group_by(Species) %>% tally()`
+* `hist(mtcars$mpg)`
+* `ggplot(mtcars) + geom_histogram(aes(x = mpg))`
+* `ggplot(mtcars) + geom_histogram(aex(x = mpg)) + facet_grid(~vs)`
+
 ## _t_-tests
 
 ```{r}
