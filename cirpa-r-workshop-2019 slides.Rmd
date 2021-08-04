@@ -60,10 +60,6 @@ ggplot(crandl_monthly, aes(date, count/1e6)) +
     y = 'Package Downloads (Millions)')
 ```
 
-## Growing fast!
-
-![](https://zgab33vy595fw5zq-zippykid.netdna-ssl.com/wp-content/uploads/2017/10/tag_growth_scatter-1-771x675.png)
-
 https://stackoverflow.blog/2017/10/10/impressive-growth-r/
     
 ## Some history
@@ -543,8 +539,8 @@ head(revenue_long, 1) # looks good so far!
 
 The two main `tidyr` functions:
 
-* `gather(data, key, value)`: Moves column names into a `key` column, with the values going into a single `value` column.
-* `spread(data, key, value)`: Moves unique values of `key` column into column names, with values from the `value` column.
+* `pivot_longer(data, names_from, values_from)`: Moves column names into a `key` column, with the values going into a single `value` column.
+* `pivot_wider(data, names_from, values_from)`: Moves unique values of `key` column into column names, with values from the `value` column.
 
 ## `tidyr` Cheatsheet
 
@@ -552,16 +548,11 @@ The two main `tidyr` functions:
 
 https://www.rstudio.com/resources/cheatsheets/ (Data Import Cheatsheet)
 
-## `tidyr` Changes in 1.0
-
-The `tidyr` package has been updated to 1.0.
-There is some new syntax around pivoting data: see [here](https://tidyr.tidyverse.org/articles/pivot.html).
-
-## `spread()` CANSIM
+## `pivot_wider()` CANSIM
 
 ```{r}
 revenue <- revenue_long %>% 
-  spread(REVENUE, Value)
+  pivot_wider(names_from = REVENUE, values_from = Value)
 
 revenue
 ```
