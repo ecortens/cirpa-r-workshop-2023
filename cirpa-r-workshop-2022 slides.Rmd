@@ -1,7 +1,7 @@
 ---
-title: "Data Carpentry: Using R to Analyze and Visualize Data"
-author: "Evan Cortens, PhD and Stephen Childs"
-date: "October 21, 2018"
+title: "An Introductory Workshop on Data Transformation, Statistics and Reporting with R"
+author: "Evan Cortens and Stephen Childs"
+date: "October 23, 2022"
 output: 
   revealjs::revealjs_presentation:
     incremental: true
@@ -36,29 +36,12 @@ knitr::opts_chunk$set(echo = TRUE)
     * Help and support
     * Innovation and development
 * R is a stable, well-supported language
-    * Major corporate backing, e.g., Microsoft
+    * Major corporate backing
 
 ## Growing fast!
 
-```{r,eval=FALSE,echo=FALSE,message=FALSE}
-# devtools::install_github('metacran/cranlogs')
-# cran_R_downloads <- cranlogs::cran_downloads('R', from = '2012-10-01', to = '2018-09-30')
-# readr::write_rds(cran_R_downloads, 'cran_R_downloads.rds', compress = 'gz')
-cran_R_downloads <- read_rds('cran_R_downloads.rds')
-
-cran_R_downloads %>% 
-  group_by(lubridate::year(date), lubridate::month(date)) %>% 
-  summarise(date = first(date), count = sum(count)) %>% 
-  ggplot(aes(date, count)) +
-  geom_line() +
-  geom_smooth()
-
-# R downloads not a great indicator, dependent on when releases are, etc
-```
-
-
 ```{r,echo=FALSE,message=FALSE}
-# crandl <- cran_downloads(from = '2012-10-01', to = '2018-09-30')
+# crandl <- cranlogs::cran_downloads(from = '2012-10-01', to = '2022-09-30')
 # write_rds(crandl, 'crandl.rds', compress = 'gz')
 library(tidyverse)
 library(lubridate)
@@ -68,6 +51,7 @@ crandl_monthly <- read_rds('crandl.rds') %>%
   summarise(date = first(date), count = sum(count))
 
 ggplot(crandl_monthly, aes(date, count/1e6)) +
+  theme_minimal() +
   geom_line() +
   geom_smooth(method = 'loess') +
   theme(axis.title.x = element_blank()) +
@@ -76,17 +60,11 @@ ggplot(crandl_monthly, aes(date, count/1e6)) +
     y = 'Package Downloads (Millions)')
 ```
 
-## Growing fast!
-
-![](https://zgab33vy595fw5zq-zippykid.netdna-ssl.com/wp-content/uploads/2017/10/tag_growth_scatter-1-771x675.png)
-
-https://stackoverflow.blog/2017/10/10/impressive-growth-r/
-    
 ## Some history
 * Based on the S programming language
     * Dates from the late 1970s, substantially revised in the late 1980s
     * (there is still a commercial version, S-PLUS)
-* R was developed at the University of Auckland
+* R was first developed at the University of Auckland
     * Ross Ihaka and Robert Gentleman
     * First developed in 1993
     * Stable public release in 2000
@@ -106,7 +84,7 @@ Why is this relevant?
 # Today's approach/Learning outcomes
 
 ## Today's approach/Learning outcomes
-In learning R today, we'll take an approach, used in *R for Data Science* (Wickham & Grolemund, 2016), diagrammed like this:
+In learning R today, we'll take an approach, used in *R for Data Science* (Wickham & Grolemund, 2017), diagrammed like this:
 
 ![](http://r4ds.had.co.nz/diagrams/data-science.png)
 
@@ -145,8 +123,9 @@ One of the strengths of R: every step of this workflow can be done using it!
 # Housekeeping
 
 ## Installing R and RStudio
-* https://cran.r-project.org/
-* https://www.rstudio.com/products/rstudio/download3/#download
+* Instructions sent via email, links:
+  * https://cran.rstudio.org/
+  * https://www.rstudio.com/products/rstudio/download/#download
 
 * `install.packages('tidyverse')`
 
@@ -372,7 +351,7 @@ seq(1, 10)
 1. File | New Project...
 2. New Directory
 3. Empty Project
-4. Under "Directory name:" put in "CIRPA 2018", under "Create project as a subdirectory of:", pick somewhere you'll remember.
+4. Under "Directory name:" put in "CIRPA 2022", under "Create project as a subdirectory of:", pick somewhere you'll remember.
 5. Click "Create Project", and RStudio will refresh, with your new project loaded.
 
 ## Download the data
@@ -390,7 +369,7 @@ We'll look at CANSIM Tables 0477-0058 and 0477-0059 which cover university reven
 
 To save time, I've already downloaded the data from CANSIM. You can get it here:
 
-http://evancortens.com/cirpa/
+https://evancortens.com/cirpa/
 
 ## Load the data
 
@@ -458,8 +437,6 @@ Is the CANSIM data tidy?
 * All can be used in conjunction with `group_by()`
 
 ## dplyr cheat sheet
-
-![](https://www.rstudio.com/wp-content/uploads/2015/01/data-transformation-cheatsheet-800x618.png)
 
 https://www.rstudio.com/resources/cheatsheets/
 
@@ -565,20 +542,18 @@ head(revenue_long, 1) # looks good so far!
 
 The two main `tidyr` functions:
 
-* `gather(data, key, value)`: Moves column names into a `key` column, with the values going into a single `value` column.
-* `spread(data, key, value)`: Moves unique values of `key` column into column names, with values from the `value` column.
+* `pivot_longer(data, cols, names_to, values_to)`: "lengthens" the data by moving the column names into `names_to` column and the values going into the `values_to` column.
+* `pivot_wider(data, names_from, values_from)`: "widens" the data by taking the names in `names_from` and making them into columns, with the values from `values_from`
 
 ## `tidyr` Cheatsheet
 
-![](tidyr.png)
-
 https://www.rstudio.com/resources/cheatsheets/ (Data Import Cheatsheet)
 
-## `spread()` CANSIM
+## `pivot_wider()` CANSIM
 
 ```{r}
 revenue <- revenue_long %>% 
-  spread(REVENUE, Value)
+  pivot_wider(names_from = REVENUE, values_from = Value)
 
 revenue
 ```
@@ -654,8 +629,8 @@ Keeps the same number of rows
 * Cumulative and rolling aggregates: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`, `cummean()`
 * Logical comparisons: `<, <=, >, >=, !=, ==`
 * Ranking: `min_rank()`, `row_number()`, `dense_rank()`, `percent_rank()`, `cume_dist()`, `ntile()`
-* `ifelse()`
-* `recode()`
+* `if_else()`
+* `dplyr::recode()`
 * `case_when()`
 
 ## Summarize (aggregate)
@@ -1253,22 +1228,6 @@ ggplot(sim1, aes(x, resid)) +
 t.test(disp ~ vs, data = mtcars)
 ```
 
-## Baysean Alternative
-
-```{r}
-library(BEST)
-y1 <- mtcars[mtcars$vs==0,3]
-y2 <- mtcars[mtcars$vs==1,3]
-mod1 <- BESTmcmc(y1, y2)
-mod1
-```
-
-## Plotting the Baysean Alternative
-
-```{r}
-plot(mod1)
-```
-
 ## Correlation
 
 ```{r}
@@ -1298,6 +1257,10 @@ chisq.test(tbl)
 ```{r, echo = FALSE}
 options(warn=0)
 ```
+
+# Resource: Which statistical test?
+
+https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/
 
 # Capstone Exercise
 
