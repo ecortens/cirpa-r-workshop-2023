@@ -1,7 +1,7 @@
 ---
 title: "An Introductory Workshop on Data Transformation, Statistics and Reporting with R"
 author: "Evan Cortens and Stephen Childs"
-date: "October 23, 2022"
+date: "October 22, 2023"
 output: 
   revealjs::revealjs_presentation:
     incremental: true
@@ -41,7 +41,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Growing fast!
 
 ```{r,echo=FALSE,message=FALSE}
-# crandl <- cranlogs::cran_downloads(from = '2012-10-01', to = '2022-09-30')
+# crandl <- cranlogs::cran_downloads(from = '2012-10-01', to = '2023-09-30')
 # write_rds(crandl, 'crandl.rds', compress = 'gz')
 library(tidyverse)
 library(lubridate)
