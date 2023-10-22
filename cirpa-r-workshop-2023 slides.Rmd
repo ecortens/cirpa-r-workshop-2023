@@ -352,7 +352,7 @@ seq(1, 10)
 1. File | New Project...
 2. New Directory
 3. Empty Project
-4. Under "Directory name:" put in "CIRPA 2022", under "Create project as a subdirectory of:", pick somewhere you'll remember.
+4. Under "Directory name:" put in "CIRPA 2023", under "Create project as a subdirectory of:", pick somewhere you'll remember.
 5. Click "Create Project", and RStudio will refresh, with your new project loaded.
 
 ## Download the data
